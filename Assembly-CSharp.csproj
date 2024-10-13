@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="Assets\01_Scripts\BarraVida.cs" />
     <Compile Include="Assets\01_Scripts\Player.cs" />
+    <Compile Include="Assets\01_Scripts\SpiderMan.cs" />
+    <Compile Include="Assets\01_Scripts\Bullet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\SimpleSky\ReadMe.txt" />
