@@ -1,16 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
     public GameObject projectilePrefab;
     public Transform firePoint;
     public float moveSpeed = 3f;
     public float projectileSpeed = 1f;
-    public int lives = 7;
+    public int maxLives = 7;
     public float speedIncreaseAmount = 0.5f;
     public float projectileSpeedIncreaseAmount = 0.5f;
+
+    public Image barraDeVida; // La barra de vida en la UI
+    private int currentLives;
+
+    void Start()
+    {
+        // Inicializa las vidas del jugador con el valor máximo
+        currentLives = maxLives;
+        UpdateHealthBar();
+    }
 
     void Update()
     {
@@ -64,18 +76,29 @@ public class Player : MonoBehaviour
         // Comprueba si el objeto que colisiona es una bala enemiga
         if (other.gameObject.CompareTag("EnemyBullet"))
         {
-            lives--;
+            // Reduce las vidas del jugador y actualiza la barra de vida
+            currentLives--;
+            UpdateHealthBar();
 
             // Destruye la bala enemiga
             Destroy(other.gameObject);
 
             // Comprueba si las vidas del jugador llegan a 0
-            if (lives <= 0)
+            if (currentLives <= 0)
             {
                 // Aquí puedes poner la lógica para cuando el jugador pierda todas sus vidas (como reiniciar el nivel o mostrar un mensaje de game over)
                 Debug.Log("Game Over");
                 Destroy(gameObject);
             }
+        }
+    }
+
+    void UpdateHealthBar()
+    {
+        // Actualiza la barra de vida en la UI
+        if (barraDeVida != null)
+        {
+            barraDeVida.fillAmount = (float)currentLives / maxLives;
         }
     }
 }
